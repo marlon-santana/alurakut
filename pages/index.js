@@ -4,7 +4,7 @@ import  Box  from '../src/components/Box'
 import  MainGrid  from '../src/components/MainGrid'
 import { AlurakutMenu, OrkutNostalgicIconSet, AlurakutProfileSidebarMenuDefault } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfilesRelations';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 function ProfileSidebar(propriedades) {
@@ -26,6 +26,31 @@ function ProfileSidebar(propriedades) {
   )
 }
 
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {props.title} ({props.items.length})
+      </h2>
+        <ul>
+        {seguidores.map((itemAtual) => {
+          return (
+            <li key={itemAtual}>
+            <a href={`https://github.com/${itemAtual}.png`}>
+              <img src={itemAtual.image} />
+              <span>{itemAtual.title}</span>
+            </a>
+            </li>
+          )
+        })}
+        </ul>
+        </ProfileRelationsBoxWrapper>
+  );
+}
+
+
+
+
 
 
 export default function Home() {
@@ -41,6 +66,21 @@ export default function Home() {
    'rafaballerini', 
    'marcobrunodev',
   'felipefialho']
+
+const [seguidores,setSeguidores] = useState([]);
+
+  useEffect(() => {
+  fetch('https://api.github.com/users/marlon-santana/followers')
+  .then((respostaDoServidor) => {
+  return respostaDoServidor.json();
+})
+  .then((respostaCompleta) => {
+    setSeguidores(respostaCompleta);
+  })
+},[])
+
+
+
 
   return (
     <>
@@ -94,6 +134,8 @@ export default function Home() {
         </div>
 
         <div className="relations" style={{ gridArea: 'relations'}}>
+
+        <ProfileRelationsBox title="seguidores" items={seguidores} />
 
         <ProfileRelationsBoxWrapper>
         <ul>
