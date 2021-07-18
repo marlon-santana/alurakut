@@ -130,12 +130,30 @@ const [seguidores,setSeguidores] = useState([]);
                 const dadosDoForm = new FormData(e.target);
 
                 const comunity = {
-                  titel:dadosDoForm.get('title'),
-                  image:dadosDoForm.get('image'),
+                  title:dadosDoForm.get('title'),
+                  imageUrl:dadosDoForm.get('image'),
+                  creatorSlug: githubUser,
                 }
 
-                const comunidadesAtualizada = [...comunidade,comunity];
-                setComunidade(comunidadesAtualizada);
+                fetch('/api/comunidades', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body:JSON.stringify(comunity)
+                })
+                .then(async (response) => {
+                  const dados = await response.json();
+                  console.log(dados.registroCriado);
+                  const comunity = dados.registroCriado;
+                  const comunidadesAtualizadas = [...comunidades, comunidade];
+                  setComunidades(comunidadesAtualizadas)
+                })
+
+              
+
+               // const comunidadesAtualizada = [...comunidade,comunity];
+                //setComunidade(comunidadesAtualizada);
           }}>
             <div>
             <input placeholder="Qual vai ser o nome da sua comunidade?" 
