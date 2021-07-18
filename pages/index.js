@@ -32,8 +32,8 @@ function ProfileRelationsBox(props) {
       <h2 className="smallTitle">
         {props.title} ({props.items.length})
       </h2>
-        <ul>
-        {seguidores.map((itemAtual) => {
+      <ul> 
+        {/*seguidores.map((itemAtual) => {
           return (
             <li key={itemAtual}>
             <a href={`https://github.com/${itemAtual}.png`}>
@@ -42,8 +42,8 @@ function ProfileRelationsBox(props) {
             </a>
             </li>
           )
-        })}
-        </ul>
+        })*/}
+        </ul> 
         </ProfileRelationsBoxWrapper>
   );
 }
@@ -55,11 +55,8 @@ function ProfileRelationsBox(props) {
 
 export default function Home() {
   const githubUser = 'marlon-santana';
-    const [comunidade, setComunidade] = useState([{
-      id: '6365341654165416254126531625',
-      title: "Eu odeio acordar cedo",
-      image: "https://alurakut.vercel.app/capa-comunidade-01.jpg"
-    }]);
+    const [comunidade, setComunidade] = useState([])
+    
   const pessoasFavoritas = ['juunegreiros',
   'omariosouto',
    'peas', 
@@ -76,6 +73,33 @@ const [seguidores,setSeguidores] = useState([]);
 })
   .then((respostaCompleta) => {
     setSeguidores(respostaCompleta);
+  })
+  // API GraphQl
+  fetch('https://graphql.datocms.com/', {
+    method: 'POST',
+    headers: {
+      'Authorization': '20c8b44b26806dd55940af82e6b9de',
+      'Content-Type': 'aplication/json',
+      'Accept': 'aplication/json',
+    },
+    body: JSON.stringify({ "query": `query {
+      allCommunities {
+        title
+        id
+        imageUrl
+        creatorSlug
+      }
+      
+    }`})
+     })
+    .then((response) => response.json())
+    .then((respostaCompleta) => {
+      const comunidadesVindaDoDato = respostaCompleta.data.allCommunities;
+      console.log(comunidadesVindaDoDato)
+
+      setComunidade(comunidadesVindaDoDato)
+     
+   
   })
 },[])
 
@@ -138,12 +162,17 @@ const [seguidores,setSeguidores] = useState([]);
         <ProfileRelationsBox title="seguidores" items={seguidores} />
 
         <ProfileRelationsBoxWrapper>
+          <h2 className='smallTitle'>
+            Comunidades ({comunidade.length})
+          </h2>
+
         <ul>
+          
         {comunidade.map((itemAtual) => {
           return (
             <li key={itemAtual.id}>
-            <a href={`/users/${itemAtual.title}`} key={itemAtual.title}>
-              <img src={itemAtual.image} />
+            <a href={`/communities/${itemAtual.id}`} >
+              <img src={itemAtual.imageUrl} />
               <span>{itemAtual.title}</span>
             </a>
             </li>
