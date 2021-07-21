@@ -46,11 +46,11 @@ export default function LoginScreen() {
             <input
                 placeholder="Usuário"
                 value={githubUser}
-                onChange={(evento) => {
+                onChange={(evento) => {   //pega o input de login e coloca no state githubUser.
                     setGithubUser(evento.target.value)
                 }}
             />
-            {githubUser.length === 0
+            {githubUser.length === 0  // validação de input caso esteja vazio.
                 ? 'Preencha o campo'
                 : ''
             }
