@@ -2,6 +2,8 @@
 
 <h1 align="center">Alurakut</h1>
 
+<img align="center" src="./assets/home.png">Alurakut</img>
+
 
 ## 👇 Sobre o projeto
 
