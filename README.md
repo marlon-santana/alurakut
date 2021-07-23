@@ -25,7 +25,6 @@ As seguintes tecnologias foram utilizadas na construção do projeto:
 - **[Datocms-client](https://github.com/datocms/js-datocms-client)**
 - **[Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)**
 - **[Styled Components](https://styled-components.com/)**
-> Veja o arquivo **[package.json](https://github.com/Brendhon/alurakut/blob/main/package.json)**
 
 ### Utilitários
 - Editor: **[Visual Studio Code](https://code.visualstudio.com/)**
