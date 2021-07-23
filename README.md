@@ -5,7 +5,7 @@
 <img align="center" src="./assets/home.png">Alurakut</img>
 
 <h1 align="center">Tela de login</h1>
-<img align="center" src="./assets/home.png">Alurakut</img>
+<img align="center" src="./assets/login.png">Alurakut</img>
 
 
 ## 👇 Sobre o projeto
